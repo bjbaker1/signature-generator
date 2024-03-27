@@ -206,7 +206,7 @@ export default {
     generateCode: function () {
       this.saveUser();
       let code = document.getElementById("signature").outerHTML
-      let scriptCode = `<link rel="stylesheet" href="path/to/your/style.css" type="text/css">`
+      let scriptCode = `<link rel="stylesheet" href="../css/generator-2.css" type="text/css">`
       navigator.clipboard.writeText(scriptCode + code);
       this.generateButtonCode = "copied to clipboard"
     },
