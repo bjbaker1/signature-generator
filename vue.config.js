@@ -3,5 +3,5 @@ module.exports = defineConfig({
   transpileDependencies: true
 })
 module.exports = {
-  publicPath: '/project name/'
-}
+  publicPath: process.env.NODE_ENV === "production" ? "/signature-generator/" : "/",
+};
