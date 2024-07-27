@@ -2,15 +2,6 @@
   <div id="signature" class="signature">
     <div class="leftPane">
       <div class="profile"><img class="face" v-if="user.previewImage" :src="user.previewImage" alt="Uploaded Picture"></div>
-      <div class="socialInfo">
-        <a class="instagram" v-if="user.social.instagram" :href="user.social.instagram">&nbsp;</a>
-        <a class="facebook" v-if="user.social.facebook" :href="user.social.facebook">&nbsp;</a>
-        <a class="youtube" v-if="user.social.youtube" :href="user.social.youtube">&nbsp;</a>
-        <a class="linkedin" v-if="user.social.linkedin" :href="user.social.linkedin">&nbsp;</a>
-        <a class="twitter" v-if="user.social.twitter" :href="user.social.twitter">&nbsp;</a>
-        <a class="tiktok" v-if="user.social.tiktok" :href="user.social.tiktok">&nbsp;</a>
-        <a class="spotify" v-if="user.social.spotify" :href="user.social.spotify">&nbsp;</a>
-      </div>
     </div>
     <div class="rightPane">
       <div class="subInfo"><p class="firstName">{{ store.firstName }}</p>
@@ -23,9 +14,18 @@
       <div class="subInfo contact" v-if="showAddress"><a :href="store.getChurchAddress"><span class="address"></span>
         <p class="address">{{ store.getChurchAddress }}</p></a></div>
       <div class="subInfo contact" v-if="user.website"><a :href="store.websiteURL"><span class="website"></span>
-        <p class="website">{{ store.websiteURL }}</p></a></div>
+        <p class="website">{{ store.getWebsiteURL }}</p></a></div>
       <div class="subInfo contact" v-if="showWebsite"><a :href="store.getChurchWebsite"><span class="churchWebsite"></span>
         <p class="website">{{ store.getChurchWebsite }}</p></a></div>
+      <div class="socialInfo">
+        <a class="instagram" v-if="user.social.instagram" :href="user.social.instagram">&nbsp;</a>
+        <a class="facebook" v-if="user.social.facebook" :href="user.social.facebook">&nbsp;</a>
+        <a class="youtube" v-if="user.social.youtube" :href="user.social.youtube">&nbsp;</a>
+        <a class="linkedin" v-if="user.social.linkedin" :href="user.social.linkedin">&nbsp;</a>
+        <a class="twitter" v-if="user.social.twitter" :href="user.social.twitter">&nbsp;</a>
+        <a class="tiktok" v-if="user.social.tiktok" :href="user.social.tiktok">&nbsp;</a>
+        <a class="spotify" v-if="user.social.spotify" :href="user.social.spotify">&nbsp;</a>
+      </div>
     </div>
   </div>
 </template>
@@ -48,14 +48,14 @@ export default {
 
 <style scoped>
 .signature {
-  background: rgba(245,133,33,1);
+  /* background: rgba(245,133,33,1);
   background: -moz-linear-gradient(45deg, rgba(245,133,33,1) 0%, rgba(250,185,127,1) 50%, rgba(245,133,33,1) 100%);
   background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(245,133,33,1)), color-stop(50%, rgba(250,185,127,1)), color-stop(100%, rgba(245,133,33,1)));
   background: -webkit-linear-gradient(45deg, rgba(245,133,33,1) 0%, rgba(250,185,127,1) 50%, rgba(245,133,33,1) 100%);
   background: -o-linear-gradient(45deg, rgba(245,133,33,1) 0%, rgba(250,185,127,1) 50%, rgba(245,133,33,1) 100%);
   background: -ms-linear-gradient(45deg, rgba(245,133,33,1) 0%, rgba(250,185,127,1) 50%, rgba(245,133,33,1) 100%);
   background: linear-gradient(45deg, rgba(245,133,33,1) 0%, rgba(250,185,127,1) 50%, rgba(245,133,33,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f58521', endColorstr='#f58521', GradientType=1 );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f58521', endColorstr='#f58521', GradientType=1 ); */
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -66,16 +66,17 @@ export default {
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* this combined with right pane styling will keep the panes at a 1:3 ratio */
-  max-width: 200px;
+  max-width: 130px;
   justify-content: center;
   padding: 5px 10px 5px 0;
-  background: dimgrey;
 }
 
 .leftPane img.face {
   border-radius: 50%;
   text-align: center;
   align-self: center;
+  margin-left: 10px;
+  border: 3px solid orange;
   width: 120px; /* Adjust width and height as needed */
   height: 120px; /* Adjust width and height as needed */
   overflow: hidden; /* This hides overflowing parts if the image has a different aspect ratio */
@@ -112,27 +113,27 @@ export default {
   background-image: url('../assets/facebook.png');
 }
 
-.leftPane .socialInfo a.instagram {
+.socialInfo a.instagram {
   background-image: url('../assets/instagram.png');
 }
 
-.leftPane .socialInfo a.linkedin {
+.socialInfo a.linkedin {
   background-image: url('../assets/linkedin.png');
 }
 
-.leftPane .socialInfo a.spotify {
+.socialInfo a.spotify {
   background-image: url('../assets/spotify.png');
 }
 
-.leftPane .socialInfo a.tiktok {
+.socialInfo a.tiktok {
   background-image: url('../assets/tiktok.png');
 }
 
-.leftPane .socialInfo a.youtube {
+.socialInfo a.youtube {
   background-image: url('../assets/youtube.png');
 }
 
-.leftPane .socialInfo a.twitter {
+.socialInfo a.twitter {
   background-image: url('../assets/x.png');
 }
 
@@ -184,16 +185,15 @@ p.slogan {
 
 .rightPane .subInfo p.firstName, .rightPane .subInfo p.lastName {
   font-weight: bolder;
-  font-size: 1.5em;
-  text-transform: uppercase;
+  font-size: 1.6em;
+  text-transform: capitalize;
   margin-right: 5px;
   color: dimgrey;
 }
 
 .rightPane .subInfo p.title {
-  margin: 0px 0 20px -5px;
+  margin: -8px 0 0 -4px;
   font-size: 0.8em;
-  background-color: white;
   padding: 5px;
   color: #f58521;
   font-weight: bolder;
