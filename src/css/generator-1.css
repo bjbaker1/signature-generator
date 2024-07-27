@@ -5,7 +5,7 @@ a {
 .signature {
     display: flex;
     flex-direction: row;
-    background-image: url("../assets/bg-1.jpg");
+    /*background-image: url("../assets/bg-1.jpg");*/
     overflow: hidden;
     justify-content: flex-start; /* Keeps the panes next to each other on the left of the screeen */
 }

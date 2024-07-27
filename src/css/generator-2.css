@@ -182,3 +182,9 @@ p.slogan {
 .rightPane span.address {
     background-image: url("../assets/pin.png");
 }
+table {
+    border: 1px solid black;
+}
+tr td, tr {
+     border: 1px solid black;
+}

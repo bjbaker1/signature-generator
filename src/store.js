@@ -79,14 +79,6 @@ export const userStore = defineStore("user", {
       return state.user.name;
     },
     mailToLink: (state) => "mailto:" + state.user.email,
-    websiteURL: (state) => {
-      let containsHttp = state.user.website.includes("http://")
-      let containsHttps = state.user.website.includes("https://")
-      if (!containsHttp || !containsHttps) {
-        return "https://" + state.user.website;
-      }
-      return state.user.website;
-    },
     phoneLink: (state) => {
       let phone = stripPhoneNumber(state.user.phone);
       return "tel:+" + phone;
@@ -102,10 +94,19 @@ export const userStore = defineStore("user", {
       // Format the phone number
       return `(${areaCode}) ${firstPart}-${lastPart}`;
     },
+    getWebsiteURL: (state) => {
+      let containsHttp = state.user.website.includes("http://")
+      let containsHttps = state.user.website.includes("https://")
+      if ((!containsHttp || !containsHttps) && state.user.website) {
+        return "https://" + state.user.website;
+      }
+      return state.user.website;
+    },
     getChurchWebsite: (state) => state.churchWebsite,
     getChurchAddress: (state) => {
       let address = state.churchAddress;
-      return `${address.street1} ${address.street2} | ${address.city}, ${address.state} | ${address.postal}`;
+
+      return `${address.street1} ${address.street2} \n ${address.city}, ${address.state} ${address.postal}`;
     },
 
   },
