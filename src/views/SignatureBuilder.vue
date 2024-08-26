@@ -129,7 +129,10 @@
                 required
             />
           </div>
-
+          <div></div>
+          <div>
+            <button @click="saveUser()">Save Info</button>
+          </div>
         </div>
       </div>
     </div>
@@ -138,11 +141,7 @@
       <input type="file" id="picture" ref="pictureInput" @change="handlePictureChange">
     </div>
 
-<!--  <input type="checkbox" v-model="theme1" /><p>Toggle theme</p>-->
-    <Gen1 v-if="theme === theme1" user="user" :showWebsite=showWebsite :showAddress=showAddress />
-    <Gen2 v-if="theme === theme2" user="user" :showWebsite=showWebsite :showAddress=showAddress />
-    <Gen3 v-if="theme === theme3" user="user" :showWebsite=showWebsite :showAddress=showAddress />
-    <Gen4 v-if="theme === theme4" user="user" :showWebsite=showWebsite :showAddress=showAddress />
+    <Gen2 user="user" :showWebsite=showWebsite :showAddress=showAddress />
 
     <div id="instructions">
       <p>In order to copy into your signature, simply highlight the entire area, right click and copy.
@@ -157,56 +156,19 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { userStore } from "@/store";
 
-import Gen1 from '../components/generator-style-1.vue';
-import Gen2 from '../components/generator-style-2.vue';
-import Gen3 from '../components/generator-inline.vue';
-import Gen4 from '../components/generator-inline2.vue';
+import signatureResult from '../components/signature-viewer.vue';
 
 export default {
   name: 'signature-generator',
-  components: { Gen1, Gen2, Gen3, Gen4 },
+  components: { Gen2: signatureResult },
   data() {
     return {
       showAddress: false,
       showWebsite: false,
       uploadedImage: null,
-      theme: "theme2",
-      generateButtonCode: 'Copy code to clipboard',
-      theme1: "theme1",
-      theme2: "theme2",
-      theme3: "theme3",
-      theme4: "theme4"
     };
   },
   methods: {
-    printInlineStyledSignature() {
-  const signatureDiv = document.getElementById("signature");
-
-  // Check if the element exists
-  if (!signatureDiv) {
-    console.error("Element with ID 'signature' not found.");
-    return;
-  }
-
-  // Get all computed styles for the element
-  const computedStyles = window.getComputedStyle(signatureDiv);
-
-  // Loop through each style property
-  let inlineStyles = "";
-  for (let i = 0; i < computedStyles.length; i++) {
-    const propertyName = computedStyles.item(i);
-    const propertyValue = computedStyles.getPropertyValue(propertyName);
-    inlineStyles += `${propertyName}: ${propertyValue};`;
-  }
-
-  // Set the inline styles on the element
-  signatureDiv.setAttribute("style", inlineStyles);
-
-  // Get the outer HTML of the element (including inline styles)
-  let finalHTML = signatureDiv.outerHTML;
-      signatureDiv.innerHTML = finalHTML;
-      console.log(finalHTML);
-},
     getFileName(file) {
       if (this.user.name === "") {
         return file.name;
@@ -240,12 +202,6 @@ export default {
       }).catch((error) => {
         alert(error);
       });
-    },
-    generateCode: function () {
-      this.saveUser();
-      let code = document.getElementById("signature").outerHTML
-      navigator.clipboard.writeText(code);
-      this.generateButtonCode = "copied to clipboard";
     },
   },
   computed: {

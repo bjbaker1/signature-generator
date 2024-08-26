@@ -128,15 +128,13 @@
       </td>
     </tr>
   </table>
-
-
 </template>
 
 <script>
 import {userStore} from "@/store";
 
 export default {
-  name: "generator-style-2.vue",
+  name: "signatureView.vue",
   props: {
     showWebsite: Boolean,
     showAddress: Boolean,
@@ -166,48 +164,6 @@ export default {
       return !!(s.instagram || s.facebook || s.youtube || s.linkedin || s.twitter || s.tiktok || s.spotify);
 
     },
-    dividerCount: function() {
-      return this.rowCount;
-    },
-    rowCount: function() {
-      let rowCount = 1;
-      if (!this.pageLoaded) {
-        return rowCount;
-      }
-
-      if (this.user.phone) {
-        rowCount++;
-      }
-      if (this.user.website) {
-        rowCount++;
-      }
-      if (this.showAddress) {
-        rowCount++;
-      }
-      if (this.showWebsite) {
-        rowCount++;
-      }
-      if (this.hasSocials) {
-        rowCount++;
-        rowCount++;
-      }
-
-      return rowCount;
-    },
-    pictureCount: function() {
-      let count = this.rowCount - 1;
-      if (count > 5) {
-        count = 5;
-      }
-      return count;
-    },
-    sloganSpan: function() {
-      let count = this.rowCount - this.pictureCount;
-      if (this.showWebsite || this.showAddress) {
-        count++;
-      }
-      return count;
-    }
   }
 }
 </script>
