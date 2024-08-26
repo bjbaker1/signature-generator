@@ -2,9 +2,9 @@
   <div class="header">
     <h1>C3 Church</h1>
     <div class="navbar">
-      <router-link to="/"> Home</router-link>
-      <router-link to="/generator"> Signature Builder</router-link>
-      <a v-if="!isLoggedIn" @click="signInWithGoogle"> Login</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/generator">Signature Builder</router-link>
+      <a v-if="!isLoggedIn" @click="signInWithGoogle">Login</a>
       <a v-if="isLoggedIn" @click="handleSignOut">Sign Out</a>
     </div>
   </div>
