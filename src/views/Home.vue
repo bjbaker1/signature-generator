@@ -1,8 +1,8 @@
 <template>
  <div id="home">
-   <h1> Welcome to the tools portal!</h1>
+   <h1>Welcome to the tools portal!</h1>
    <p>Not much to see here yet, but a sweet signature generator for your emails.</p>
-   <p><button @click="signInWithGoogle">Sign in with your C3 email address</button> to get access.</p>
+   <p>Sign in with your C3 email address to get access.</p>
  </div>
 </template>
 

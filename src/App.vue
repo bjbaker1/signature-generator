@@ -14,7 +14,7 @@
 
 <script>
 
-import {getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup} from "firebase/auth";
+import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import router from "@/router";
 import {db} from "@/firebase";
 import {doc, getDoc} from "firebase/firestore";
@@ -26,15 +26,24 @@ export default {
     return {
       auth: '',
       user: {},
-      store: userStore()
+      store: userStore(),
+      isLoggedIn: false,
     }
   },
   methods: {
+    handleSignOut() {
+      localStorage.token = "";
+      this.user = {};
+      this.auth = "";
+      this.isLoggedIn = false;
+      router.push("/");
+    },
     signInWithGoogle() {
       const provider = new GoogleAuthProvider();
       this.auth = getAuth();
       signInWithPopup(this.auth, provider).then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        this.isLoggedIn = true
         localStorage.token = credential.accessToken;
         this.getUserDetails(result.user);
         router.push("/generator");
@@ -55,14 +64,6 @@ export default {
       }
     },
   },
-  computed: {
-    isLoggedIn: () => {
-      let auth = getAuth();
-      return !onAuthStateChanged(auth, (user) => {
-        return !user;
-      });
-    }
-  }
 }
 </script>
 
