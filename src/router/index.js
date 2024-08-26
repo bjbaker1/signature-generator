@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/signature-generator'),
   routes: [
     { path: "/", component:  () => import("../views/Home.vue")},
     { path:"/generator",
