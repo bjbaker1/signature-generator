@@ -71,7 +71,7 @@
       </td>
     </tr>
     <tr v-if="hasSocials" style="border-bottom: 2px solid orange;"><td style="height: 10px;"></td></tr>
-    <tr class="image6-socials-empty" v-if="hasSocials">
+    <tr class="image6-socials-empty" style="height: 35px;" v-if="hasSocials">
       <td>
         <div class="socialInfo" style="display: flex;
               flex-direction: row;
