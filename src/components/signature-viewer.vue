@@ -16,7 +16,7 @@
     <tr class="image1-email-empty">
       <td :rowspan="7" style="text-align: center; vertical-align: top;">
         <img class="face"
-             style="border-radius: 50%; width:100px; margin:0 10px;"
+             style="border-radius: 50%; margin:0 15px; width:150px; max-height:150px; object-fit:cover; object-position: top;"
              v-if="user.previewImage" :src="user.previewImage"
              alt="Uploaded Picture" />
       </td>
@@ -57,7 +57,7 @@
             src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Fpin.png?alt=media&token=dedba082-3833-4d9e-b48b-c78d706b59e4"
             alt="address"
         />
-        <a style="color: black; font-size: 1em;" :href="store.getChurchAddress">{{ store.getChurchAddress }}</a>
+        <a style="color: black; font-size: 1em;" :href="formatAddress(store.getChurchAddress)">{{ store.getChurchAddress }}</a>
       </td>
     </tr>
     <tr class="image5-churchSite-empty" v-if="showWebsite" style="height:25px;">
@@ -82,43 +82,43 @@
               gap: 8px;
               padding-top: 5px;
               width: 400px;">
-          <a style="margin-right:5px;" class="instagram" v-if="user.social.instagram" :href="user.social.instagram">
+          <a style="margin-right:5px;" class="instagram" v-if="user.social.instagram" :href="formatURL(user.social.instagram)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Finstagram.png?alt=media&token=64223a37-465f-4905-a63e-948f85fcfdf2"
             />
           </a>
-          <a style="margin-right:5px;" class="facebook" v-if="user.social.facebook" :href="user.social.facebook">
+          <a style="margin-right:5px;" class="facebook" v-if="user.social.facebook" :href="formatURL(user.social.facebook)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Ffacebook.png?alt=media&token=ad59336e-ea15-4521-a750-1c2b3cd0c29f"
             />
           </a>
-          <a style="margin-right:5px;" class="youtube" v-if="user.social.youtube" :href="user.social.youtube">
+          <a style="margin-right:5px;" class="youtube" v-if="user.social.youtube" :href="formatURL(user.social.youtube)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Fyoutube.png?alt=media&token=c36c9886-25b1-4d77-8d16-7fc7a2fb9a37"
             />
           </a>
-          <a style="margin-right:5px;" class="linkedin" v-if="user.social.linkedin" :href="user.social.linkedin">
+          <a style="margin-right:5px;" class="linkedin" v-if="user.social.linkedin" :href="formatURL(user.social.linkedin)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Flinkedin.png?alt=media&token=daf146b3-c73a-41bf-82d5-431617bc9aa7"
             />
           </a>
-          <a style="margin-right:5px;" class="twitter" v-if="user.social.twitter" :href="user.social.twitter">
+          <a style="margin-right:5px;" class="twitter" v-if="user.social.twitter" :href="formatURL(user.social.twitter)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Fx.png?alt=media&token=c95a60fe-0471-45d9-9561-21a9710402e8"
             />
           </a>
-          <a style="margin-right:5px;" class="tiktok" v-if="user.social.tiktok" :href="user.social.tiktok">
+          <a style="margin-right:5px;" class="tiktok" v-if="user.social.tiktok" :href="formatURL(user.social.tiktok)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Ftiktok.png?alt=media&token=182d9f6b-5e34-4b73-9e1a-0295185ed54b"
             />
           </a>
-          <a class="spotify" v-if="user.social.spotify" :href="user.social.spotify">
+          <a class="spotify" v-if="user.social.spotify" :href="formatURL(user.social.spotify)">
             <img
                 style="width:22px;"
                 src="https://firebasestorage.googleapis.com/v0/b/signature-builder-3f15e.appspot.com/o/icons%2Fspotify.png?alt=media&token=5ea04409-c96e-4a46-8924-eccb0ec5efb5"
@@ -148,6 +148,18 @@ export default {
   mounted() {
     this.pageLoaded = true;
   },
+  methods: {
+    formatURL(providedString) {
+        if (providedString.includes("http://") || providedString.includes("https://")) {
+          return providedString;
+        }
+      return "https://" + providedString;
+    },
+    formatAddress(address) {
+      let formattedAddress = address.replace(/\s/g, '+');
+      return "https://www.google.com/maps/place/" + formattedAddress
+    }
+  },
   computed: {
     user: () => userStore().getUser,
     store: () => userStore(),
@@ -162,8 +174,7 @@ export default {
     hasSocials: function() {
       let s = this.user.social;
       return !!(s.instagram || s.facebook || s.youtube || s.linkedin || s.twitter || s.tiktok || s.spotify);
-
-    },
+    }
   }
 }
 </script>

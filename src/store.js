@@ -106,7 +106,7 @@ export const userStore = defineStore("user", {
     getChurchAddress: (state) => {
       let address = state.churchAddress;
 
-      return `${address.street1} ${address.street2} \n ${address.city}, ${address.state} ${address.postal}`;
+      return `${address.street1}, ${address.city}, ${address.state} ${address.postal}`;
     },
 
   },
